@@ -24,8 +24,8 @@ App Information
 """
 APP_NAME = 'TO Neighbourhood Safety Tool'
 ABOUT_HEADER = 'About'
-NEIGHBORHOOD_HEADER = "Neighborhood Safety Risk & Socio-economic Profile"
-OVERVIEW_HEADER = 'Safety Risk & Socio-economic Overview'
+OVERVIEW_HEADER = 'Safety & Socio-economic Overview'
+NEIGHBORHOOD_HEADER = "Neighborhood Safety & Socio-economic Profile"
 PREDICTON_HEADER = 'Neighborhood Safety Risk Prediction'
 FORECAST_HEADER = 'Neighborhood Safety Risk Forecast'
 APP_FILTERS = 'Filters'

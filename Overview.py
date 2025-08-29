@@ -5,25 +5,17 @@ st.title(APP_NAME)
 st.header(OVERVIEW_HEADER)
 
 st.write("""
-         Highlights Socio-economic Metrics and Crime Risk trends in the City of Toronto.  
+         Highlights Socio-economic Metrics and Safety risk trends in the City of Toronto.  
          """)
 
 
-tab1, tab2 = st.tabs(["Socio-Ecomonic Metrics", "Community Risk Trends"])
+tab1, tab2 = st.tabs(["Socio-Economic Metrics", "Safety Risk Trends"])
 
 with tab1:
     st.subheader("Culture")
     col1, col2 = st.columns(2)
     col1.metric("Lingustic Diversity", round(statistics.median(wellbeing_culture['Linguistic Diversity Index']),2))
     col2.metric("Cultural Location Index", statistics.median(wellbeing_culture['Cultural Location Index']))
-
-    st.subheader("Economics")
-    col1, col2, col3, col4, col5 = st.columns(5)
-    col1.metric("No. of Businessess",statistics.median(wellbeing_economics['Businesses']))
-    col2.metric("Child Care Spaces",statistics.median(wellbeing_economics['Child Care Spaces']))
-    col3.metric("Debt Risk Score",statistics.median(wellbeing_economics['Debt Risk Score']))
-    col4.metric("Local Employment",statistics.median(wellbeing_economics['Local Employment']))
-    col5.metric("Social Assistance Recipients",statistics.median(wellbeing_economics['Social Assistance Recipients']))
 
     st.subheader("Environment")
     col1, col2 = st.columns(2)
@@ -33,13 +25,23 @@ with tab1:
     st.subheader("Health")
     col1, col2 = st.columns(2)
     col1.metric("No. of DineSafe Inspections",statistics.median(wellbeing_health["DineSafe Inspections"]))
-    col2.metric("# of Health Providers",statistics.median(wellbeing_health['Health Providers']))
+    col2.metric("No. of Health Providers",statistics.median(wellbeing_health['Health Providers']))
+
+    st.subheader("Economics")
+    col1, col2, col3, col4, col5 = st.columns(5)
+    col1.metric("No. of Businessess",statistics.median(wellbeing_economics['Businesses']))
+    col2.metric("Child Care Spaces",statistics.median(wellbeing_economics['Child Care Spaces']))
+    col3.metric("Debt Risk Score",statistics.median(wellbeing_economics['Debt Risk Score']))
+    col4.metric("Local Employment",statistics.median(wellbeing_economics['Local Employment']))
+    col5.metric("Social Assistance Recipients",statistics.median(wellbeing_economics['Social Assistance Recipients']))
+
+
 
 with tab2:
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.subheader("Total Crime by Year")
+            st.subheader("Total Incidents by Year")
             crimes_data = df_filtered[['MCI_CATEGORY','OCC_YEAR']]
             crimes_data = crimes_data.groupby(['OCC_YEAR']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
             crimes_data.columns = ['Year','Total']
@@ -47,7 +49,7 @@ with tab2:
             fig = px.bar(crimes_data, x="Year", y="Total")
             st.plotly_chart(fig)
         with col2:
-            st.subheader("Crime Category by Year")
+            st.subheader("Total Incidents by Year and Incident Category")
             crimes_data = df_filtered[['MCI_CATEGORY','OCC_YEAR']]
             crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_YEAR']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
             crimes_data.columns = ['MCI CATEGORY', 'Year','Total']
@@ -55,7 +57,7 @@ with tab2:
             fig = px.line(crimes_data, x="Year", y="Total",color='MCI CATEGORY')
             st.plotly_chart(fig)
         with col3:
-            st.subheader("MCI Category Mix")
+            st.subheader("Incident Category Mix")
             crimes_data = df_filtered[['MCI_CATEGORY']]
             crimes_data = crimes_data.groupby(['MCI_CATEGORY']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
             crimes_data.columns = ['MCI CATEGORY','Total']   
@@ -69,7 +71,7 @@ with tab2:
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Crime Category by Month")
+        st.subheader("Incident Category by Month")
         crimes_data = df_filtered[['MCI_CATEGORY','OCC_MONTH']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_MONTH']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'Month','Total']
@@ -79,7 +81,7 @@ with tab2:
         fig = px.line(crimes_data, x="Month", y="Total",color='MCI CATEGORY')
         st.plotly_chart(fig)
 
-        st.subheader("Crime Category by Day of Week")
+        st.subheader("Incident Category by Day of Week")
         crimes_data = df_filtered[['MCI_CATEGORY','OCC_DOW']]
         dow_dict = {'Monday':1,'Tuesday':2,'Wednesday':3, 'Thursday':4, 'Friday':5, 'Saturday':6, 'Sunday':7}
         crimes_data = crimes_data[crimes_data['OCC_DOW'].isin(dow_dict)]
@@ -89,7 +91,7 @@ with tab2:
         fig = px.line(crimes_data, x="Day of Week", y="Total",color='MCI CATEGORY')
         st.plotly_chart(fig)
 
-        st.subheader("Crime by Hour & Day of Week")
+        st.subheader("Incidents by Hour & Day of Week")
 
         crimes_data = df_filtered[['OCC_HOUR', 'OCC_DOW']]
         crimes_data = (
@@ -122,7 +124,7 @@ with tab2:
 
 
     with col2:
-        st.subheader("Crime Category by Day of the Month")
+        st.subheader("Incident Category by Day of the Month")
         crimes_data = df_filtered[['MCI_CATEGORY','OCC_DAY']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_DAY']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'Day','Total']
@@ -130,7 +132,7 @@ with tab2:
         fig = px.line(crimes_data, x="Day", y="Total",color='MCI CATEGORY')
         st.plotly_chart(fig)
 
-        st.subheader("Crime Category by Hour")
+        st.subheader("Incident Category by Hour")
         crimes_data = df_filtered[['MCI_CATEGORY','OCC_HOUR']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','OCC_HOUR']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'Hour','Total']
@@ -138,7 +140,7 @@ with tab2:
         fig = px.line(crimes_data, x="Hour", y="Total",color='MCI CATEGORY')
         st.plotly_chart(fig)
 
-        st.subheader("Crime Category by Premise Type")
+        st.subheader("Incident Category by Premise Type")
         crimes_data = df_filtered[['MCI_CATEGORY','PREMISES_TYPE']]
         crimes_data = crimes_data.groupby(['MCI_CATEGORY','PREMISES_TYPE']).agg(Total_reviews = ('MCI_CATEGORY', 'count')).reset_index()
         crimes_data.columns = ['MCI CATEGORY', 'PREMISES TYPE','Total']

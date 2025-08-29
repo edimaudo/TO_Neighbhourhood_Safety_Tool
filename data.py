@@ -16,8 +16,10 @@ def load_data(DATA_URL,DATA_TYPE):
 
 
 # safety risk data
+
 df = load_data("data/Major_Crime_Indicators_Open_Data.xlsx",'xlsx')
-df_filtered = df[(df['OCC_YEAR'] >= 2014) & (df['OCC_YEAR'] < 2025)]
+max_date = df['OCC_YEAR'].max() # max date
+df_filtered = df[(df['OCC_YEAR'] >= 2014) & (df['OCC_YEAR'] < max_date)]
 
 # wellbeing data
 wellbeing_culture = load_data("data/wellbeing-toronto-culture.xlsx",'xlsx')
@@ -29,13 +31,13 @@ wellbeing_housing =  load_data("data/wellbeing-toronto-housing.xlsx",'xlsx')
 wellbeing_recreation =  load_data("data/wellbeing-toronto-recreation.xlsx",'xlsx')
 
 # neighborhood
-neighborhood_improvement_area = load_data("data/neighbourhood-improvement-areas.xlsx",'xlsx')
-neighborhood = load_data("data/Neighbourhoods.xlsx","xlsx")
+#neighborhood_improvement_area = load_data("data/neighbourhood-improvement-areas.xlsx",'xlsx')
+#neighborhood = load_data("data/Neighbourhoods.xlsx","xlsx")
 
 
 # Data Information
 YEAR = (
-    df.loc[(df['OCC_YEAR'] >= 2014) & (df['OCC_YEAR'] <= 2025), 'OCC_YEAR']
+    df.loc[(df['OCC_YEAR'] >= 2014) & (df['OCC_YEAR'] <= max_date), 'OCC_YEAR']
       .unique()
 )
 YEAR = YEAR.astype(int)
