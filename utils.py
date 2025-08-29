@@ -18,6 +18,9 @@ import time
 import numpy as np
 import statistics
 import xgboost
+from google import genai
+from dotenv import load_dotenv, dotenv_values 
+load_dotenv() 
 
 """
 App Information

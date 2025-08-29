@@ -1,7 +1,5 @@
 from utils import *
 from data import *
-import config
-#from config import *
 
 st.title(APP_NAME)
 st.header(PREDICTON_HEADER)
@@ -12,7 +10,7 @@ with st.sidebar:
     hour_options = st.selectbox('Hour',HOUR)
     premises_options = st.selectbox('Premises Type',PREMISES_TYPE)
     neighbourhood_options = st.selectbox('Neighborhood',NEIGHBORHOOD)
-    clicked = st.button("Run Prediction")
+    clicked = st.button("Run Incident Prediction")
 
 # Model information
 model_data = df_filtered[['OCC_MONTH','OCC_DOW','OCC_HOUR','PREMISES_TYPE','Neighborhood','MCI_CATEGORY']]
@@ -68,11 +66,17 @@ if clicked:
         crime_output = 'Theft Over'
     st.write("The Predicted Incident Category is: " + crime_output)
     
-    st.subheader("Community Action Steps")
+    st.subheader("Neighhourhood Action Steps")
     
-    st.write("Based on the incident category: " + crime_output + ', here are some safety recommendations for the community')
-    prompt = " You are a community safety advisor. Based on the following crime" + str(crime_output) + " that occurred in " + str(premises_options) + " at " + str(hour_options) + " hours in " + str(neighbourhood_options) + " a neigbhorhood in Toronto, Ontario, " + "generate 3 practical safety recommendations for local residents."
+    st.write("Based on the incident category: " + crime_output + ', here are some safety recommendations for the neighborhood')
+    prompt = "Generate the output using a numbered bullet point format.  You are a neighourhood safety advisor. Based on the following crime" + str(crime_output) + " that occurred in " + str(premises_options) + " at " + str(hour_options) + " hours in " + str(neighbourhood_options) + " a neigbhorhood in Toronto, Ontario, " + "generate 3 practical safety recommendations for local residents."
     
-    config.model.generate(prompt)
-    prompt_output = config.model.generate_text(prompt)
-    outcome_txt = st.text_area(label=" ",value=prompt_output,placeholder='')
+    client = genai.Client() 
+    response = client.models.generate_content(
+    model="gemini-2.5-flash", 
+    contents=prompt
+    )
+    
+    outcome_txt = st.text_area(label=" ",value=response.text,placeholder='', disabled=True)
+
+
