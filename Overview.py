@@ -5,11 +5,11 @@ st.title(APP_NAME)
 st.header(OVERVIEW_HEADER)
 
 st.write("""
-         Highlights Socio-economic Metrics and Safety risk trends in the City of Toronto.  
+         Highlights Socio-economic Metrics and Incident risk trends in the City of Toronto.  
          """)
 
 
-tab1, tab2 = st.tabs(["Socio-Economic Metrics", "Safety Risk Trends"])
+tab1, tab2 = st.tabs(["Socio-Economic Metrics", "Incident Risk Trends"])
 
 with tab1:
     st.subheader("Culture")

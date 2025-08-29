@@ -24,10 +24,10 @@ App Information
 """
 APP_NAME = 'TO Neighbourhood Safety Tool'
 ABOUT_HEADER = 'About'
-OVERVIEW_HEADER = 'Safety & Socio-economic Overview'
-NEIGHBORHOOD_HEADER = "Neighborhood Safety & Socio-economic Profile"
-PREDICTON_HEADER = 'Neighborhood Safety Risk Prediction'
-FORECAST_HEADER = 'Neighborhood Safety Risk Forecast'
+OVERVIEW_HEADER = 'Incidents & Socio-economic Overview'
+NEIGHBORHOOD_HEADER = "Neighborhood Incidents & Socio-economic Profile"
+PREDICTON_HEADER = 'Neighborhood Incidents Risk Prediction'
+FORECAST_HEADER = 'Neighborhood Incidents Risk Forecast'
 APP_FILTERS = 'Filters'
 NO_DATA_INFO = 'No data available to display based on the filters'
 
