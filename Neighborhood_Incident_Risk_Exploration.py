@@ -5,11 +5,11 @@ st.title(APP_NAME)
 st.header(NEIGHBORHOOD_HEADER)
 
 st.write("""
-         Highlights Socio-economic Metrics and Crime Risk trends for the selected neighborhood in Toronto.  
+         Highlights Socio-economic Metrics and Incident Risk trends for the selected neighborhood in Toronto.  
          """)
 
 
-tab1, tab2 = st.tabs(["Socio-Ecomonic Metrics", "Crime Risk Trends"])
+tab1, tab2 = st.tabs(["Socio-Ecomonic Metrics", "Incident Risk Trends"])
 with tab1:
     with st.sidebar:
         neighourhood_options = st.selectbox('Neighbourhood',NEIGHBORHOOD)

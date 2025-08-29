@@ -66,11 +66,11 @@ if clicked:
         crime_output = 'Robbery'
     else:
         crime_output = 'Theft Over'
-    st.write("The Predicted Crime Category is: " + crime_output)
+    st.write("The Predicted Incident Category is: " + crime_output)
     
     st.subheader("Community Action Steps")
     
-    st.write("Based on the crime category: " + crime_output + ', here are some safety recommendations for the community')
+    st.write("Based on the incident category: " + crime_output + ', here are some safety recommendations for the community')
     prompt = " You are a community safety advisor. Based on the following crime" + str(crime_output) + " that occurred in " + str(premises_options) + " at " + str(hour_options) + " hours in " + str(neighbourhood_options) + " a neigbhorhood in Toronto, Ontario, " + "generate 3 practical safety recommendations for local residents."
     
     config.model.generate(prompt)
