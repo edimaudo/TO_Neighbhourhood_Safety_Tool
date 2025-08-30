@@ -4,6 +4,8 @@ from data import *
 st.title(APP_NAME)
 st.header(PREDICTON_HEADER)
 
+st.write("Use the filters to predict that type of incidents and get insights into how to keep yourself safe")
+
 with st.sidebar:
     month_options = st.selectbox('Month',MONTH)
     dow_options = st.selectbox('Day of Week',DAY_OF_WEEK)
