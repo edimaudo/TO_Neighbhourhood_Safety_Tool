@@ -64,12 +64,13 @@ if clicked:
         crime_output = 'Robbery'
     else:
         crime_output = 'Theft Over'
-    st.write("The Predicted Incident Category is: " + crime_output)
+    st.write(" ")
+    st.write("For the chosen selection the Predicted Incident Category is: " + crime_output)
     
     st.subheader("Neighhourhood Action Steps")
     
     st.write("Based on the incident category: " + crime_output + ', here are some safety recommendations for the neighborhood')
-    prompt = "Generate the output using a numbered bullet point format.  You are a neighourhood safety advisor. Based on the following crime" + str(crime_output) + " that occurred in " + str(premises_options) + " at " + str(hour_options) + " hours in " + str(neighbourhood_options) + " a neigbhorhood in Toronto, Ontario, " + "generate 3 practical safety recommendations for local residents."
+    prompt = "Generate the output using a numbered bullet point format.  You are a neighourhood safety advisor. Based on the following crime" + str(crime_output) + " that occurred in " + str(premises_options) + " at " + str(hour_options) + " hours in " + str(neighbourhood_options) + " a neigbhorhood in Toronto, Ontario, " + "generate 3 personalized practical safety recommendations for local residents."
     
     client = genai.Client() 
     response = client.models.generate_content(
